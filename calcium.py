@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 from compiler import Compiler
+from interpreter import CalcVm
 from parser import Parser
 from tokenizer import tokenize
 
@@ -18,6 +19,8 @@ def main(args):
     print("\n=== Byte code =================")
     for bc in bytecode:
         print(f"    {bc}")
+    print("\n=== Execute ===================")
+    CalcVm().execute(bytecode)
 
 
 if __name__ == "__main__":
