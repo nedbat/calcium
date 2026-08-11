@@ -1,0 +1,7 @@
+x = 1
+y = x + 10
+z = 2 * (y + x)
+print z
+x = x + 100
+print x
+print x * z
