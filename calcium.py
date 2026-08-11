@@ -2,8 +2,8 @@ import pprint
 import sys
 from pathlib import Path
 
-from tokenizer import tokenize
 from parser import Parser
+from tokenizer import tokenize
 
 
 def main(args):

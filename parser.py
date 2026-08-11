@@ -57,7 +57,7 @@ class Parser:
     def error(self, msg=None) -> Never:
         if msg is None:
             msg = f"Didn't understand token {self.token.text}"
-        raise Exception(f"Error! {msg}")
+        raise RuntimeError(f"Error! {msg}")
 
     def eat(self) -> None:
         self.token = next(self.tokens, Token("eof", ""))
