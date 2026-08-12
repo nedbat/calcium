@@ -18,7 +18,7 @@ def main(args):
     bytecode = Compiler(ast).compile()
     print("\n=== Byte code =================")
     for bc in bytecode:
-        print(f"    {bc}")
+        print(bc)
     print("\n=== Execute ===================")
     CalcVm().execute(bytecode)
 

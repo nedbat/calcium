@@ -55,30 +55,30 @@ Program(stmts=[Assign(var_name='x', expr=Int(value=1)),
                                 right=Var(name='z')))])
 
 === Byte code =================
-    PUSH_INT: 1
-    STORE_VAR: 'x'
-    LOAD_VAR: 'x'
-    PUSH_INT: 10
-    BIN_OP: '+'
-    STORE_VAR: 'y'
-    PUSH_INT: 2
-    LOAD_VAR: 'y'
-    LOAD_VAR: 'x'
-    BIN_OP: '+'
-    BIN_OP: '*'
-    STORE_VAR: 'z'
-    LOAD_VAR: 'z'
-    PRINT: None
-    LOAD_VAR: 'x'
-    PUSH_INT: 100
-    BIN_OP: '+'
-    STORE_VAR: 'x'
-    LOAD_VAR: 'x'
-    PRINT: None
-    LOAD_VAR: 'x'
-    LOAD_VAR: 'z'
-    BIN_OP: '*'
-    PRINT: None
+PUSH_INT   1
+STORE_VAR  x
+LOAD_VAR   x
+PUSH_INT   10
+BIN_OP     +
+STORE_VAR  y
+PUSH_INT   2
+LOAD_VAR   y
+LOAD_VAR   x
+BIN_OP     +
+BIN_OP     *
+STORE_VAR  z
+LOAD_VAR   z
+PRINT
+LOAD_VAR   x
+PUSH_INT   100
+BIN_OP     +
+STORE_VAR  x
+LOAD_VAR   x
+PRINT
+LOAD_VAR   x
+LOAD_VAR   z
+BIN_OP     *
+PRINT
 
 === Execute ===================
 24

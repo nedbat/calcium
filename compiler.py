@@ -10,7 +10,10 @@ class ByteCode:
     val: Any
 
     def __str__(self):
-        return f"{self.op}: {self.val!r}"
+        if self.val is not None:
+            return f"{self.op:10s} {self.val}"
+        else:
+            return self.op
 
 
 class Compiler:
