@@ -68,6 +68,12 @@ class Parser:
         else:
             self.error(f"Expected {text!r}")
 
+    def expect_kind(self, kind):
+        if self.token.kind == kind:
+            self.eat()
+        else:
+            self.error(f"Expected {kind}")
+
     def parse(self) -> Program:
         stmts = []
         self.eat()
@@ -84,12 +90,14 @@ class Parser:
             self.eat()
             self.expect("=")
             expr = self.expression()
-            return Assign(var_name, expr)
+            stmt = Assign(var_name, expr)
         elif self.token.text == "print":
             self.eat()
-            return Print(self.expression())
+            stmt = Print(self.expression())
         else:
             self.error()
+        self.expect_kind("eol")
+        return stmt
 
     def expression(self) -> Expr:
         return self.sum()

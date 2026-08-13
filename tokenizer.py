@@ -12,7 +12,7 @@ class Token:
         return f"{self.kind}: {self.text!r}"
 
 
-TOKENS = r"""(?x)
+TOKENS = r"""(?mx)
     (?P<key>print)                      |
     (?P<pnc>[-+*/()=])                  |
     (?P<var>[A-Za-z][A-Za-z0-9_]*)      |

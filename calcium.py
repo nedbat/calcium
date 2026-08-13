@@ -10,15 +10,22 @@ from tokenizer import tokenize
 
 def main(args):
     source = Path(args[0]).read_text()
-    tokens = tokenize(source)
+    tokens = list(tokenize(source))
+
+    print("\n=== Tokens ====================")
+    for t in tokens:
+        print(t, end="\n" if t.kind == "eol" else "; ")
+
+    print("\n=== AST =======================")
     parser = Parser(tokens)
     ast = parser.parse()
-    print("\n=== AST =======================")
     pprint.pprint(ast)
-    bytecode = Compiler(ast).compile()
+
     print("\n=== Byte code =================")
+    bytecode = Compiler(ast).compile()
     for bc in bytecode:
         print(bc)
+
     print("\n=== Execute ===================")
     CalcVm().execute(bytecode)
 
