@@ -27,10 +27,20 @@ print x * z
 
 ## Running
 
-Run `calcium.py` with a file name of a .calc file. It will show the parsed AST, the compiled byte code, and then execute the program.
+Run `calcium.py` with a file name of a .calc file. It will show the tokens, the parsed AST, the compiled byte code, and then execute the program.
 
 ```
 % python3 calcium.py example.calc
+
+=== Tokens ====================
+nam: 'x'; pnc: '='; int: '1'; eol: ''
+nam: 'y'; pnc: '='; nam: 'x'; pnc: '+'; int: '10'; eol: ''
+nam: 'z'; pnc: '='; int: '2'; pnc: '*'; pnc: '('; nam: 'y'; pnc: '+'; nam: 'x'; pnc: ')'; eol: ''
+key: 'print'; nam: 'z'; eol: ''
+nam: 'x'; pnc: '='; nam: 'x'; pnc: '+'; int: '100'; eol: ''
+key: 'print'; nam: 'x'; eol: ''
+key: 'print'; nam: 'x'; pnc: '*'; nam: 'z'; eol: ''
+eol: ''
 
 === AST =======================
 Program(stmts=[Assign(var_name='x', expr=Int(value=1)),

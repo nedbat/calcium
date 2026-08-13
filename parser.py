@@ -85,7 +85,7 @@ class Parser:
         return Program(stmts)
 
     def statement(self) -> Stmt:
-        if self.token.kind == "var":
+        if self.token.kind == "nam":
             var_name = self.token.text
             self.eat()
             self.expect("=")
@@ -121,7 +121,7 @@ class Parser:
         return expr
 
     def leaf(self) -> Expr:
-        if self.token.kind == "var":
+        if self.token.kind == "nam":
             var_name = self.token.text
             self.eat()
             return Var(var_name)

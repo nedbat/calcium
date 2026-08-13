@@ -15,7 +15,7 @@ class Token:
 TOKENS = r"""(?mx)
     (?P<key>print)                      |
     (?P<pnc>[-+*/()=])                  |
-    (?P<var>[A-Za-z][A-Za-z0-9_]*)      |
+    (?P<nam>[A-Za-z][A-Za-z0-9_]*)      |
     (?P<int>[0-9]+)                     |
     (?P<eol>$)                          |
     \s+                                 |
