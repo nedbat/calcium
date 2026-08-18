@@ -1,3 +1,10 @@
+"""
+The main program for Calcium.
+
+This reads the source code, then runs it through the four phases: tokenize,
+parse, compile to byte code, and execute byte code.
+"""
+
 import pprint
 import sys
 from pathlib import Path

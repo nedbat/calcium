@@ -4,6 +4,8 @@ A micro-minimalist language, with an AST, "bytecode" and a virtual machine.
 
 It's called calcium because it's pretty much just a simple calculator.
 
+I wrote this because I wanted a really simple example to show people who asked about how Python source code was executed. This is of course an extremely simplified example, but has the same basic flow as the real Python interpreter.
+
 ## Syntax
 
 - There are only two statements: variable assignment and `print`.
@@ -27,7 +29,9 @@ print x * z
 
 ## Running
 
-Run `calcium.py` with a file name of a .calc file. It will show the tokens, the parsed AST, the compiled byte code, and then execute the program.
+This is not an installable Python package, to encourage you to read (and maybe extend!) the source.
+
+Get the code, then run `calcium.py` with a file name of a .calc file. It will show the tokens, the parsed AST, the compiled byte code, and then execute the program.
 
 ```
 % python3 calcium.py example.calc
@@ -95,3 +99,12 @@ PRINT
 101
 2424
 ```
+
+## Adding more
+
+If you want to get a better understanding, you can try adding more features to your own copy of the code.
+
+- Comments.
+- Floating point numbers.
+- Better error message when the user's code is incorrect.
+- Anything you want!
