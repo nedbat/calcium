@@ -112,15 +112,15 @@ class Parser:
         return expr
 
     def product(self) -> Expr:
-        expr = self.leaf()
+        expr = self.term()
         while self.token.text in {"*", "/"}:
             op = self.token.text
             self.eat()
-            right = self.leaf()
+            right = self.term()
             expr = BinOp(op, expr, right)
         return expr
 
-    def leaf(self) -> Expr:
+    def term(self) -> Expr:
         if self.token.kind == "nam":
             var_name = self.token.text
             self.eat()
