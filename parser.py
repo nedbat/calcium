@@ -1,13 +1,13 @@
 """Parser for Calcium."""
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 from typing import Never
 
 from tokenizer import Token
 
-
 # The AST is an Abstract Syntax Tree. It represents the structure of the program
-# as a tree of speciolized nodes.  For example, `1+2` a BinOp node with two
+# as a tree of specialized nodes.  For example, `1+2` a BinOp node with two
 # children, both Int nodes.
 
 
@@ -71,35 +71,49 @@ class Program(Ast):
     stmts: list[Stmt]
 
 
-# Now for the parser itself. This is a "recursive descent" parser: methods
-# represent the different structures in a program. Methods call each other to
-# attempt to parse sub-structures.
 class Parser:
-    def __init__(self, tokens) -> None:
+    """
+    The parser itself.
+
+    This is a "recursive descent" parser: methods represent the different
+    structures in a program. Methods call each other to attempt to parse
+    sub-structures.
+
+    """
+
+    def __init__(self, tokens: Iterable[Token]) -> None:
+        """Construct a parser with an iterable of tokens."""
         self.tokens = iter(tokens)
+        # The current token, initialized as eol so we are ready to start the
+        # first statement.
         self.token = Token("eol", "")
 
-    def error(self, msg=None) -> Never:
+    def error(self, msg: str | None = None) -> Never:
+        """Raise an error."""
         if msg is None:
             msg = f"Didn't understand token {self.token.text}"
         raise RuntimeError(f"Error! {msg}")
 
     def eat(self) -> None:
+        """Consume the current token and set self.token to the next one."""
         self.token = next(self.tokens, Token("eof", ""))
 
-    def expect(self, text) -> None:
+    def expect(self, text: str) -> None:
+        """Eat the current token if it's the one we expect, or raise an error."""
         if self.token.text == text:
             self.eat()
         else:
             self.error(f"Expected {text!r}")
 
-    def expect_kind(self, kind) -> None:
+    def expect_kind(self, kind: str) -> None:
+        """Eat the current token if it's the kind we expect, or raise an error."""
         if self.token.kind == kind:
             self.eat()
         else:
             self.error(f"Expected {kind}")
 
     def parse(self) -> Program:
+        """The main parser: read statements and return a Program node."""
         stmts = []
         self.eat()
         while self.token.kind != "eof":
