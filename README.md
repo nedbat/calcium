@@ -1,10 +1,12 @@
 # Calcium
 
-A micro-minimalist language, with an AST, "bytecode" and a virtual machine.
+A micro-minimalist language, with an AST, bytecode and a virtual machine.
 
 It's called calcium because it's pretty much just a simple calculator.
 
-I wrote this because I wanted a really simple example to show people who asked about how Python source code was executed. This is of course an extremely simplified example, but has the same basic flow as the real Python interpreter.
+I wrote this because I wanted a really simple example to show people who asked about how Python source code was executed. This is of course an extremely simplified example, but has the same basic flow as a real Python implementation.
+
+A blog post about it: [Micro language implementation: Calcium](https://nedbatchelder.com/blog/202608/micro_language_implementation_calcium).
 
 ## Syntax
 
@@ -31,11 +33,9 @@ print x * z
 
 This is not an installable Python package, to encourage you to read (and maybe extend!) the source.
 
-Get the code, then run `calcium.py` with a file name of a .calc file. It will show the tokens, the parsed AST, the compiled byte code, and then execute the program.
+Get the code, then run `calcium.py` with a file name of a .calc file. It will show the tokens, the parsed AST, the compiled bytecode, and then execute the program.
 
 ```
-% python3 calcium.py example.calc
-
 === Tokens ====================
 nam: 'x'; pnc: '='; int: '1'; eol: ''
 nam: 'y'; pnc: '='; nam: 'x'; pnc: '+'; int: '10'; eol: ''
@@ -68,7 +68,7 @@ Program(stmts=[Assign(var_name='x', expr=Int(value=1)),
                                 left=Var(name='x'),
                                 right=Var(name='z')))])
 
-=== Byte code =================
+=== Bytecode ==================
 PUSH_INT   1
 STORE_VAR  x
 LOAD_VAR   x

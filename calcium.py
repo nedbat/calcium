@@ -27,7 +27,7 @@ def main(args):
     ast = Parser(tokens).parse()
     pprint.pprint(ast)
 
-    print("\n=== Byte code =================")
+    print("\n=== Bytecode ==================")
     bytecode = Compiler(ast).compile()
     for bc in bytecode:
         print(bc)
