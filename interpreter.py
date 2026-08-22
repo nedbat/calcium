@@ -1,24 +1,39 @@
-from compiler import ByteCode
+"""
+The bytecode interpreter. A stack machine.
+"""
+
+from bytecodes import ByteCode, Op
 
 
 class CalcVm:
     def __init__(self):
+        # The variables: names referencing integers.
         self.variables: dict[str, int] = {}
+        # The stack: values in progress.
         self.stack: list[int] = []
 
     def execute(self, bytecode: list[ByteCode]) -> None:
+        """Execute bytecode.
+
+        Example each bytecode in turn, and do what it says.
+        """
         for bc in bytecode:
             match bc:
-                case ByteCode("PUSH_INT", value):
+                # Push an integer value onto the stack.
+                case ByteCode(Op.PUSH_INT, value):
                     self.stack.append(value)
 
-                case ByteCode("STORE_VAR", var_name):
+                # Pop a value from the stack and store it in a variable.
+                case ByteCode(Op.STORE_VAR, var_name):
                     self.variables[var_name] = self.stack.pop()
 
-                case ByteCode("LOAD_VAR", var_name):
+                # Get the value of a variable and push it on the stack.
+                case ByteCode(Op.LOAD_VAR, var_name):
                     self.stack.append(self.variables[var_name])
 
-                case ByteCode("BIN_OP", op):
+                # Pop two values off the stack, perform a binary operation on
+                # them, and push the result back on the stack.
+                case ByteCode(Op.BIN_OP, op):
                     right = self.stack.pop()
                     left = self.stack.pop()
                     match op:
@@ -32,5 +47,6 @@ class CalcVm:
                             val = left // right
                     self.stack.append(val)
 
-                case ByteCode("PRINT", _):
+                # Pop a value from the stack and print it.
+                case ByteCode(Op.PRINT, _):
                     print(self.stack.pop())

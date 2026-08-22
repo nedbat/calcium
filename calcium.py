@@ -24,8 +24,7 @@ def main(args):
         print(t, end="\n" if t.kind == "eol" else "; ")
 
     print("\n=== AST =======================")
-    parser = Parser(tokens)
-    ast = parser.parse()
+    ast = Parser(tokens).parse()
     pprint.pprint(ast)
 
     print("\n=== Byte code =================")

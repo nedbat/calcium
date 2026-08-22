@@ -1,44 +1,47 @@
-from dataclasses import dataclass
+"""
+The compiler walks the tree of AST nodes, writing bytecode to represent the
+execution. The bytecodes will be executed by the interpreter.
+"""
+
 from typing import Any
 
+from bytecodes import ByteCode, Op
 from parser import Assign, BinOp, Int, Print, Program, Var
-
-
-@dataclass
-class ByteCode:
-    op: str
-    val: Any
-
-    def __str__(self):
-        if self.val is not None:
-            return f"{self.op:10s} {self.val}"
-        else:
-            return self.op
 
 
 class Compiler:
     def __init__(self, program: Program) -> None:
         self.program = program
-        self.bytecode = []
+        self.bytecode: list[ByteCode] = []
+
+    def add_bytecode(self, op: Op, val: Any) -> None:
+        """Simple helper to add a bytecode to the growing program."""
+        self.bytecode.append(ByteCode(op, val))
 
     def compile(self):
+        """Main compiler."""
         for stmt in self.program.stmts:
             match stmt:
                 case Assign(var_name, expr):
                     self.compile_expr(expr)
-                    self.bytecode.append(ByteCode("STORE_VAR", var_name))
+                    self.add_bytecode(Op.STORE_VAR, var_name)
+
                 case Print(expr):
                     self.compile_expr(expr)
-                    self.bytecode.append(ByteCode("PRINT", None))
+                    self.add_bytecode(Op.PRINT, None)
+
         return self.bytecode
 
     def compile_expr(self, expr):
+        """Add bytecodes to calculate an expression."""
         match expr:
             case Int(value):
-                self.bytecode.append(ByteCode("PUSH_INT", value))
+                self.add_bytecode(Op.PUSH_INT, value)
+
             case Var(var_name):
-                self.bytecode.append(ByteCode("LOAD_VAR", var_name))
+                self.add_bytecode(Op.LOAD_VAR, var_name)
+
             case BinOp(op, left, right):
                 self.compile_expr(left)
                 self.compile_expr(right)
-                self.bytecode.append(ByteCode("BIN_OP", op))
+                self.add_bytecode(Op.BIN_OP, op)
